@@ -20,5 +20,5 @@ export const useToggleColorMode = () => {
     setTheme(newTheme);
   }, [mode]);
 
-  return { toggleColorMode, theme };
+  return { toggleColorMode, theme, mode };
 };

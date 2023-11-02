@@ -5,11 +5,15 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import { collection, getDoc, doc, getDocs } from 'firebase/firestore';
 
 import { db } from './firebase.config';
+import { Header } from './components/Header';
+import { TodoItem } from './containers/TodoItem/TodoItem';
+import { TodoItemsList } from './containers/TodoItemsList/TodoItemsList';
 import bgdesktopdark from './assets/bg-desktop-dark.jpg';
 import { useToggleColorMode } from './hooks/useToggleColorMode';
+import { AddTodoItem } from './containers/AddTodoItem/AddTodoItem';
 
 export const App = () => {
-  const { toggleColorMode, theme } = useToggleColorMode();
+  const { toggleColorMode, theme, mode } = useToggleColorMode();
   // useEffect(() => {
   //   const fetchTodo = async () => {
   //     try {
@@ -42,9 +46,16 @@ export const App = () => {
           color: 'text.primary',
         }}
       >
-        <Grid container flexDirection="column">
+        <Grid
+          container
+          flexDirection="column"
+          sx={{ maxWidth: '1440px', margin: '0 auto' }}
+        >
           <Grid sx={{ position: 'relative' }}>
-            <img src={bgdesktopdark} />
+            <img
+              src={bgdesktopdark}
+              style={{ width: '100%', height: '300px' }}
+            />
           </Grid>
           <Grid
             sx={{
@@ -52,32 +63,15 @@ export const App = () => {
               zIndex: '2',
               height: '100%',
               width: '100%',
+              maxWidth: '1440px',
               margin: 'auto',
-              padding: '70px 425px',
+              padding: '70px 450px',
             }}
           >
-            <Grid display="flex" justifyContent="space-between">
-              <Stack>
-                <Typography
-                  sx={{
-                    fontFamily: 'Josefin Sans',
-                    fontSize: '40px',
-                    fontStyle: 'normal',
-                    fontWeight: '700',
-                    lineHeight: 'normal',
-                    letterSpacing: '15px',
-                    color: '#FFF',
-                  }}
-                >
-                  TODO
-                </Typography>
-              </Stack>
-              <Stack>
-                <IconButton onClick={() => toggleColorMode()}>
-                  <LightModeIcon sx={{ fontSize: '26px', color: '#FFF' }} />
-                </IconButton>
-              </Stack>
-            </Grid>
+            <Header toggleColorMode={toggleColorMode} mode={mode} />
+            <AddTodoItem />
+            <TodoItem />
+            <TodoItemsList />
           </Grid>
         </Grid>
       </Box>
