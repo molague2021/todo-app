@@ -14,6 +14,9 @@ export const useToggleColorMode = () => {
     const newTheme = createTheme({
       palette: {
         mode,
+        background: {
+          default: mode === 'light' ? '#FAFAFA' : '#171823',
+        },
       },
     });
 
