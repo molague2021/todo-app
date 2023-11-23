@@ -16,7 +16,14 @@ export const useToggleColorMode = () => {
         mode,
         background: {
           default: mode === 'light' ? '#FAFAFA' : '#171823',
+          paper: mode === 'light' ? '#FFF' : '#25273D',
         },
+        text: {
+          primary: mode === 'light' ? '#393A4B' : '#C8CBE7',
+          secondary: mode === 'light' ? '#9495A5' : '#5B5E7E',
+          disabled: mode === 'light' ? '#9495A5' : '#767992',
+        },
+        divider: mode === 'light' ? '#E3E4F1' : '#393A4B',
       },
     });
 
