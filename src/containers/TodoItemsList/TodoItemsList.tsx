@@ -5,78 +5,110 @@ import {
   SvgIcon,
   TextField,
   Typography,
+  Button,
   styled,
   Divider,
   Icon,
 } from '@mui/material';
 
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { TodoItem } from '../TodoItem/TodoItem';
+import { useTodoItems } from '../../hooks/useTodoItems';
 
-const StyledTypography = styled(Typography)(({ theme }) => ({}));
-const StyledDivider = styled('div')(({ theme }) => ({
-  [theme.breakpoints.between('sm', 'md')]: {
-    width: '706px',
-    height: '1px',
-    flexShrink: '0',
-    background: 'white',
-  },
-  [theme.breakpoints.between('md', 'xl')]: {
-    width: '540px',
-    height: '1px',
-    flexShrink: '0',
-    background: theme.palette.divider,
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  [`&.MuiTypography-root`]: {
+    color: '#5B5E7E',
+    fontFamily: 'Josefin Sans',
+    fontSize: '14px',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: 'normal',
+    letterSpacing: '-0.194px',
   },
 }));
-interface TodoItem {
-  category: string[];
-  date: Date;
-  name: string;
-  status: string;
-}
 
-type TodoItemsListProps = {
-  todoItem: TodoItem;
-};
+const StyledButton = styled(Button)(({ theme }) => ({
+  [`&.MuiButton-root`]: {
+    color: theme.palette.text.secondary,
+    fontFamily: 'Josefin Sans',
+    fontSize: '14px',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 'normal' /* 162.5% */,
+    letterSpacing: '-0.194px',
+    padding: '0',
+    minWidth: '0',
+    textTransform: 'none',
+  },
+  [`&.MuiButton-root:hover`]: {
+    color: '#3A7CFD',
+  },
+  [theme.breakpoints.between('sm', 'md')]: {
+    width: '136px',
+    padding: 0,
+    height: '26px',
+    flexShrink: '0',
+  },
+}));
 
-export const TodoItemsList = ({ todoItem }: TodoItemsListProps) => {
+export const TodoItemsList = () => {
+  const { todoItems } = useTodoItems();
+
   return (
     <>
       <Grid
-        item
+        mt={3}
+        container
         display="flex"
-        alignItems="center"
         sx={{
           width: '540px',
-          height: '64px',
-          flexShrink: '0',
-          padding: '0 24px',
+          borderRadius: '5px',
+          bgcolor: 'background.paper',
+          boxShadow: '0px 35px 50px -15px rgba(0, 0, 0, 0.50)',
         }}
       >
-        <Grid>
-          <IconButton sx={{ padding: 0 }}>
-            <SvgIcon viewBox="0 0 24 24">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="25"
-                height="24"
-                viewBox="0 0 25 24"
-                fill="none"
-              >
-                <circle cx="12" cy="12" r="11" stroke="#393A4B" />
-              </svg>
-            </SvgIcon>
-          </IconButton>
-        </Grid>
-        <Grid sx={{ marginLeft: '24px', width: '100%' }}>
-          <StyledTypography>{`${todoItem.name}`}</StyledTypography>
-        </Grid>
-        <Grid>
-          <IconButton sx={{ padding: 0 }}>
-            <CloseOutlinedIcon />
-          </IconButton>
+        {todoItems?.map((item) => {
+          return <TodoItem todoItem={item} />;
+        })}
+        <Grid
+          item
+          display="flex"
+          alignItems="center"
+          sx={{ width: '540px', height: '50px', flexShrink: '0' }}
+        >
+          <Grid
+            display="flex"
+            justifyContent="space-between"
+            sx={{ width: '540px', padding: '0 24px' }}
+          >
+            <StyledTypography>{`${
+              todoItems?.length ?? 0
+            } items left`}</StyledTypography>
+            <Grid
+              display="flex"
+              justifyContent="space-between"
+              sx={{ width: '166px' }}
+            >
+              <StyledButton>All</StyledButton>
+              <StyledButton>Active</StyledButton>
+              <StyledButton>Completed</StyledButton>
+            </Grid>
+            <Grid display="flex">
+              <StyledButton>Clear Completed</StyledButton>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
-      <StyledDivider />
+      <Grid
+        container
+        display="flex"
+        justifyContent="center"
+        sx={{
+          width: '540px',
+          marginTop: '49px',
+        }}
+      >
+        <StyledTypography>{`Drag and drop to reorder list`}</StyledTypography>
+      </Grid>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Grid, IconButton, SvgIcon, TextField, styled } from '@mui/material';
 import icon_oval from '../../assets/icon_oval.svg';
 
@@ -22,6 +22,12 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 }));
 
 export const AddTodoItem = () => {
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && e.target.value) {
+      console.log(e.target.value);
+    }
+  };
+
   return (
     <Grid
       mt={6}
@@ -58,7 +64,7 @@ export const AddTodoItem = () => {
           </IconButton>
         </Grid>
         <Grid sx={{ marginLeft: '24px', width: '100%' }}>
-          <StyledTextField />
+          <StyledTextField onKeyDown={handleKeyDown} />
         </Grid>
       </Grid>
     </Grid>
