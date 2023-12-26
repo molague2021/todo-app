@@ -5,6 +5,7 @@ import { collection, getDoc, doc, getDocs } from 'firebase/firestore';
 import { db } from '../firebase.config';
 
 interface TodoItem {
+  id: string;
   category: string[];
   date: Date;
   name: string;
@@ -24,8 +25,10 @@ export const useTodoItems = () => {
 
         let items: TodoItem[] = [];
         docSnap.forEach((doc) => {
+          console.log(doc);
           console.log(doc.data());
           items.push({
+            id: doc.id,
             category: doc.data().category,
             date: doc.data().date,
             name: doc.data().name,

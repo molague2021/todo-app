@@ -10,6 +10,7 @@ import {
   Icon,
 } from '@mui/material';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { Draggable } from 'react-beautiful-dnd';
 
 const StyledTypography = styled(Typography)(({ theme }) => ({}));
 const StyledDivider = styled('div')(({ theme }) => ({
@@ -27,6 +28,7 @@ const StyledDivider = styled('div')(({ theme }) => ({
   },
 }));
 interface TodoItem {
+  id: string;
   category: string[];
   date: Date;
   name: string;
@@ -34,48 +36,67 @@ interface TodoItem {
 }
 
 type TodoItemsListProps = {
+  props?: any;
+  innerRef?: any;
   todoItem: TodoItem;
+  index: number;
 };
 
-export const TodoItem = ({ todoItem }: TodoItemsListProps) => {
+export const TodoItem = ({
+  //props,
+  // innerRef,
+  todoItem,
+  index,
+}: TodoItemsListProps) => {
+  //console.log(props);
   return (
-    <>
-      <Grid
-        item
-        display="flex"
-        alignItems="center"
-        sx={{
-          width: '540px',
-          height: '64px',
-          flexShrink: '0',
-          padding: '0 24px',
-        }}
-      >
-        <Grid>
-          <IconButton sx={{ padding: 0 }}>
-            <SvgIcon viewBox="0 0 24 24">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="25"
-                height="24"
-                viewBox="0 0 25 24"
-                fill="none"
-              >
-                <circle cx="12" cy="12" r="11" stroke="#393A4B" />
-              </svg>
-            </SvgIcon>
-          </IconButton>
-        </Grid>
-        <Grid sx={{ marginLeft: '24px', width: '100%' }}>
-          <StyledTypography>{`${todoItem.name}`}</StyledTypography>
-        </Grid>
-        <Grid>
-          <IconButton sx={{ padding: 0 }}>
-            <CloseOutlinedIcon />
-          </IconButton>
-        </Grid>
-      </Grid>
-      <StyledDivider />
-    </>
+    <Draggable draggableId={todoItem.id} index={index}>
+      {(provided) => (
+        <>
+          <Grid
+            item
+            key={todoItem.id}
+            id={`todoitem-${todoItem.id}`}
+            display="flex"
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            innerRef={provided.innerRef}
+            alignItems="center"
+            draggable={true}
+            sx={{
+              width: '540px',
+              height: '64px',
+              flexShrink: '0',
+              padding: '0 24px',
+            }}
+          >
+            <Grid>
+              <IconButton sx={{ padding: 0 }}>
+                <SvgIcon viewBox="0 0 24 24">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="25"
+                    height="24"
+                    viewBox="0 0 25 24"
+                    fill="none"
+                  >
+                    <circle cx="12" cy="12" r="11" stroke="#393A4B" />
+                  </svg>
+                </SvgIcon>
+              </IconButton>
+            </Grid>
+            <Grid sx={{ marginLeft: '24px', width: '100%' }}>
+              <StyledTypography>{`${todoItem.name}`}</StyledTypography>
+            </Grid>
+            <Grid>
+              <IconButton sx={{ padding: 0 }}>
+                <CloseOutlinedIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
+          <StyledDivider />
+        </>
+      )}
+    </Draggable>
   );
 };

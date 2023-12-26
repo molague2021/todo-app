@@ -11,6 +11,8 @@ import {
   Icon,
 } from '@mui/material';
 
+import { Droppable } from 'react-beautiful-dnd';
+
 import { TodoItem } from '../TodoItem/TodoItem';
 import { useTodoItems } from '../../hooks/useTodoItems';
 
@@ -55,49 +57,56 @@ export const TodoItemsList = () => {
 
   return (
     <>
-      <Grid
-        mt={3}
-        container
-        display="flex"
-        sx={{
-          width: '540px',
-          borderRadius: '5px',
-          bgcolor: 'background.paper',
-          boxShadow: '0px 35px 50px -15px rgba(0, 0, 0, 0.50)',
-        }}
-      >
-        {todoItems?.map((item) => {
-          return <TodoItem todoItem={item} />;
-        })}
-        <Grid
-          item
-          display="flex"
-          alignItems="center"
-          sx={{ width: '540px', height: '50px', flexShrink: '0' }}
-        >
+      <Droppable droppableId={1}>
+        {(provided) => (
           <Grid
+            mt={3}
+            container
+            {...provided.droppableProps}
+            innerRef={provided.innerRef}
             display="flex"
-            justifyContent="space-between"
-            sx={{ width: '540px', padding: '0 24px' }}
+            sx={{
+              width: '540px',
+              borderRadius: '5px',
+              bgcolor: 'background.paper',
+              boxShadow: '0px 35px 50px -15px rgba(0, 0, 0, 0.50)',
+            }}
           >
-            <StyledTypography>{`${
-              todoItems?.length ?? 0
-            } items left`}</StyledTypography>
+            {todoItems?.map((item, index) => {
+              return <TodoItem todoItem={item} index={index} />;
+            })}
             <Grid
+              item
+              key="sorting-list"
               display="flex"
-              justifyContent="space-between"
-              sx={{ width: '166px' }}
+              alignItems="center"
+              sx={{ width: '540px', height: '50px', flexShrink: '0' }}
             >
-              <StyledButton>All</StyledButton>
-              <StyledButton>Active</StyledButton>
-              <StyledButton>Completed</StyledButton>
-            </Grid>
-            <Grid display="flex">
-              <StyledButton>Clear Completed</StyledButton>
+              <Grid
+                display="flex"
+                justifyContent="space-between"
+                sx={{ width: '540px', padding: '0 24px' }}
+              >
+                <StyledTypography>{`${
+                  todoItems?.length ?? 0
+                } items left`}</StyledTypography>
+                <Grid
+                  display="flex"
+                  justifyContent="space-between"
+                  sx={{ width: '166px' }}
+                >
+                  <StyledButton>All</StyledButton>
+                  <StyledButton>Active</StyledButton>
+                  <StyledButton>Completed</StyledButton>
+                </Grid>
+                <Grid display="flex">
+                  <StyledButton>Clear Completed</StyledButton>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </Grid>
+        )}
+      </Droppable>
       <Grid
         container
         display="flex"
