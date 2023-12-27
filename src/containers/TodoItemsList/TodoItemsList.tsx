@@ -11,10 +11,25 @@ import {
   Icon,
 } from '@mui/material';
 
-import { Droppable } from 'react-beautiful-dnd';
+import { Droppable, DragDropContext } from 'react-beautiful-dnd';
 
 import { TodoItem } from '../TodoItem/TodoItem';
-import { useTodoItems } from '../../hooks/useTodoItems';
+import {
+  TodoItem as TodoItemType,
+  useTodoItems,
+} from '../../hooks/useTodoItems';
+
+// a little function to help us with reordering the result
+const reorder = (list, startIndex, endIndex) => {
+  console.log({ list });
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  console.log({ result });
+
+  return result;
+};
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   [`&.MuiTypography-root`]: {
@@ -53,59 +68,82 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 export const TodoItemsList = () => {
-  const { todoItems } = useTodoItems();
+  const { todoItems, setTodoItems } = useTodoItems();
+
+  const onDragEnd = (result) => {
+    // dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    const items = reorder(
+      todoItems,
+      result.source.index,
+      result.destination.index
+    );
+
+    console.log(items, typeof items);
+
+    setTodoItems(items as TodoItemType[]);
+  };
 
   return (
-    <>
-      <Droppable droppableId={1}>
-        {(provided) => (
-          <Grid
-            mt={3}
-            container
-            {...provided.droppableProps}
-            innerRef={provided.innerRef}
-            display="flex"
-            sx={{
-              width: '540px',
-              borderRadius: '5px',
-              bgcolor: 'background.paper',
-              boxShadow: '0px 35px 50px -15px rgba(0, 0, 0, 0.50)',
-            }}
-          >
-            {todoItems?.map((item, index) => {
-              return <TodoItem todoItem={item} index={index} />;
-            })}
+    <DragDropContext
+      onDragEnd={(result) => {
+        onDragEnd(result);
+      }}
+    >
+      <Droppable droppableId="1" key="1">
+        {(provided) => {
+          return (
             <Grid
-              item
-              key="sorting-list"
+              mt={3}
+              container
+              {...provided.droppableProps}
+              ref={provided.innerRef}
               display="flex"
-              alignItems="center"
-              sx={{ width: '540px', height: '50px', flexShrink: '0' }}
+              sx={{
+                width: '540px',
+                borderRadius: '5px',
+                bgcolor: 'background.paper',
+                boxShadow: '0px 35px 50px -15px rgba(0, 0, 0, 0.50)',
+              }}
             >
+              {todoItems?.map((item, index) => {
+                return <TodoItem todoItem={item} index={index} />;
+              })}
               <Grid
+                item
+                key="sorting-list"
                 display="flex"
-                justifyContent="space-between"
-                sx={{ width: '540px', padding: '0 24px' }}
+                alignItems="center"
+                sx={{ width: '540px', height: '50px', flexShrink: '0' }}
               >
-                <StyledTypography>{`${
-                  todoItems?.length ?? 0
-                } items left`}</StyledTypography>
                 <Grid
                   display="flex"
                   justifyContent="space-between"
-                  sx={{ width: '166px' }}
+                  sx={{ width: '540px', padding: '0 24px' }}
                 >
-                  <StyledButton>All</StyledButton>
-                  <StyledButton>Active</StyledButton>
-                  <StyledButton>Completed</StyledButton>
-                </Grid>
-                <Grid display="flex">
-                  <StyledButton>Clear Completed</StyledButton>
+                  <StyledTypography>{`${
+                    todoItems?.length ?? 0
+                  } items left`}</StyledTypography>
+                  <Grid
+                    display="flex"
+                    justifyContent="space-between"
+                    sx={{ width: '166px' }}
+                  >
+                    <StyledButton>All</StyledButton>
+                    <StyledButton>Active</StyledButton>
+                    <StyledButton>Completed</StyledButton>
+                  </Grid>
+                  <Grid display="flex">
+                    <StyledButton>Clear Completed</StyledButton>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        )}
+          );
+        }}
       </Droppable>
       <Grid
         container
@@ -118,6 +156,6 @@ export const TodoItemsList = () => {
       >
         <StyledTypography>{`Drag and drop to reorder list`}</StyledTypography>
       </Grid>
-    </>
+    </DragDropContext>
   );
 };

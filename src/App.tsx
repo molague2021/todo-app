@@ -24,47 +24,45 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <DragDropContext>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            height: '100%',
-            width: '100%',
-            alignItems: 'flex-start',
-            bgcolor: 'background.default',
-            color: 'text.primary',
-          }}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+          width: '100%',
+          alignItems: 'flex-start',
+          bgcolor: 'background.default',
+          color: 'text.primary',
+        }}
+      >
+        <Grid
+          container
+          flexDirection="column"
+          sx={{ maxWidth: '1440px', margin: '0 auto' }}
         >
-          <Grid
-            container
-            flexDirection="column"
-            sx={{ maxWidth: '1440px', margin: '0 auto' }}
-          >
-            <Grid sx={{ position: 'relative' }}>
-              <img
-                src={bgdesktopdark}
-                style={{ width: '100%', height: '300px' }}
-              />
-            </Grid>
-            <Grid
-              sx={{
-                position: 'absolute',
-                zIndex: '2',
-                height: '100%',
-                width: '100%',
-                maxWidth: '1440px',
-                margin: 'auto',
-                padding: '70px 450px',
-              }}
-            >
-              <Header toggleColorMode={toggleColorMode} mode={mode} />
-              <AddTodoItem />
-              <TodoItemsList />
-            </Grid>
+          <Grid sx={{ position: 'relative' }}>
+            <img
+              src={bgdesktopdark}
+              style={{ width: '100%', height: '300px' }}
+            />
           </Grid>
-        </Box>
-      </DragDropContext>
+          <Grid
+            sx={{
+              position: 'absolute',
+              zIndex: '2',
+              height: '100%',
+              width: '100%',
+              maxWidth: '1440px',
+              margin: 'auto',
+              padding: '70px 450px',
+            }}
+          >
+            <Header toggleColorMode={toggleColorMode} mode={mode} />
+            <AddTodoItem />
+            <TodoItemsList />
+          </Grid>
+        </Grid>
+      </Box>
     </ThemeProvider>
   );
 };

@@ -50,7 +50,7 @@ export const TodoItem = ({
 }: TodoItemsListProps) => {
   //console.log(props);
   return (
-    <Draggable draggableId={todoItem.id} index={index}>
+    <Draggable key={todoItem.id} draggableId={todoItem.id} index={index}>
       {(provided) => (
         <>
           <Grid
@@ -60,7 +60,7 @@ export const TodoItem = ({
             display="flex"
             {...provided.draggableProps}
             {...provided.dragHandleProps}
-            innerRef={provided.innerRef}
+            ref={provided.innerRef}
             alignItems="center"
             draggable={true}
             sx={{

@@ -4,7 +4,7 @@ import { collection, getDoc, doc, getDocs } from 'firebase/firestore';
 
 import { db } from '../firebase.config';
 
-interface TodoItem {
+export interface TodoItem {
   id: string;
   category: string[];
   date: Date;
@@ -48,5 +48,5 @@ export const useTodoItems = () => {
   // Delete Todo Item
   // Filter Functions need to be added here
 
-  return { todoItems };
+  return { todoItems, setTodoItems };
 };
