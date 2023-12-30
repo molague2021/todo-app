@@ -21,12 +21,9 @@ import {
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
-  console.log({ list });
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
-
-  console.log({ result });
 
   return result;
 };
@@ -82,8 +79,6 @@ export const TodoItemsList = () => {
       result.destination.index
     );
 
-    console.log(items, typeof items);
-
     setTodoItems(items as TodoItemType[]);
   };
 
@@ -93,58 +88,64 @@ export const TodoItemsList = () => {
         onDragEnd(result);
       }}
     >
-      <Droppable droppableId="1" key="1">
-        {(provided) => {
-          return (
-            <Grid
-              mt={3}
-              container
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              display="flex"
-              sx={{
-                width: '540px',
-                borderRadius: '5px',
-                bgcolor: 'background.paper',
-                boxShadow: '0px 35px 50px -15px rgba(0, 0, 0, 0.50)',
-              }}
-            >
-              {todoItems?.map((item, index) => {
-                return <TodoItem todoItem={item} index={index} />;
-              })}
-              <Grid
-                item
-                key="sorting-list"
-                display="flex"
-                alignItems="center"
-                sx={{ width: '540px', height: '50px', flexShrink: '0' }}
-              >
-                <Grid
-                  display="flex"
-                  justifyContent="space-between"
-                  sx={{ width: '540px', padding: '0 24px' }}
-                >
-                  <StyledTypography>{`${
-                    todoItems?.length ?? 0
-                  } items left`}</StyledTypography>
-                  <Grid
-                    display="flex"
-                    justifyContent="space-between"
-                    sx={{ width: '166px' }}
-                  >
-                    <StyledButton>All</StyledButton>
-                    <StyledButton>Active</StyledButton>
-                    <StyledButton>Completed</StyledButton>
-                  </Grid>
-                  <Grid display="flex">
-                    <StyledButton>Clear Completed</StyledButton>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          );
+      <Grid
+        mt={3}
+        container
+        display="flex"
+        sx={{
+          width: '540px',
+          borderRadius: '5px',
+          bgcolor: 'background.paper',
+          boxShadow: '0px 35px 50px -15px rgba(0, 0, 0, 0.50)',
         }}
-      </Droppable>
+      >
+        <Droppable droppableId="list" type="group" key="1">
+          {(provided) => {
+            return (
+              <Grid
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                sx={{ minHeight: '128px' }}
+              >
+                {todoItems?.map((item, index) => {
+                  return <TodoItem todoItem={item} index={index} />;
+                })}
+                {provided.placeholder}
+              </Grid>
+            );
+          }}
+        </Droppable>
+        <Grid
+          item
+          key="sorting-list"
+          display="flex"
+          alignItems="center"
+          sx={{ width: '540px', height: '50px', flexShrink: '0' }}
+        >
+          <Grid
+            display="flex"
+            justifyContent="space-between"
+            sx={{ width: '540px', padding: '0 24px' }}
+          >
+            <StyledTypography>{`${
+              todoItems?.length ?? 0
+            } items left`}</StyledTypography>
+            <Grid
+              display="flex"
+              justifyContent="space-between"
+              sx={{ width: '166px' }}
+            >
+              <StyledButton>All</StyledButton>
+              <StyledButton>Active</StyledButton>
+              <StyledButton>Completed</StyledButton>
+            </Grid>
+            <Grid display="flex">
+              <StyledButton>Clear Completed</StyledButton>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+
       <Grid
         container
         display="flex"

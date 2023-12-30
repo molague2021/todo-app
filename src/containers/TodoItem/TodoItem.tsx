@@ -42,61 +42,57 @@ type TodoItemsListProps = {
   index: number;
 };
 
-export const TodoItem = ({
-  //props,
-  // innerRef,
-  todoItem,
-  index,
-}: TodoItemsListProps) => {
-  //console.log(props);
+export const TodoItem = ({ todoItem, index }: TodoItemsListProps) => {
   return (
     <Draggable key={todoItem.id} draggableId={todoItem.id} index={index}>
-      {(provided) => (
-        <>
-          <Grid
-            item
-            key={todoItem.id}
-            id={`todoitem-${todoItem.id}`}
-            display="flex"
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
-            alignItems="center"
-            draggable={true}
-            sx={{
-              width: '540px',
-              height: '64px',
-              flexShrink: '0',
-              padding: '0 24px',
-            }}
-          >
-            <Grid>
-              <IconButton sx={{ padding: 0 }}>
-                <SvgIcon viewBox="0 0 24 24">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="24"
-                    viewBox="0 0 25 24"
-                    fill="none"
-                  >
-                    <circle cx="12" cy="12" r="11" stroke="#393A4B" />
-                  </svg>
-                </SvgIcon>
-              </IconButton>
+      {(provided) => {
+        return (
+          <>
+            <Grid
+              item
+              key={todoItem.id}
+              id={`todoitem-${todoItem.id}`}
+              display="flex"
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              ref={provided.innerRef}
+              alignItems="center"
+              draggable={true}
+              sx={{
+                width: '540px',
+                height: '64px',
+                flexShrink: '0',
+                padding: '0 24px',
+              }}
+            >
+              <Grid>
+                <IconButton sx={{ padding: 0 }}>
+                  <SvgIcon viewBox="0 0 24 24">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="24"
+                      viewBox="0 0 25 24"
+                      fill="none"
+                    >
+                      <circle cx="12" cy="12" r="11" stroke="#393A4B" />
+                    </svg>
+                  </SvgIcon>
+                </IconButton>
+              </Grid>
+              <Grid sx={{ marginLeft: '24px', width: '100%' }}>
+                <StyledTypography>{`${todoItem.name}`}</StyledTypography>
+              </Grid>
+              <Grid>
+                <IconButton sx={{ padding: 0 }}>
+                  <CloseOutlinedIcon />
+                </IconButton>
+              </Grid>
             </Grid>
-            <Grid sx={{ marginLeft: '24px', width: '100%' }}>
-              <StyledTypography>{`${todoItem.name}`}</StyledTypography>
-            </Grid>
-            <Grid>
-              <IconButton sx={{ padding: 0 }}>
-                <CloseOutlinedIcon />
-              </IconButton>
-            </Grid>
-          </Grid>
-          <StyledDivider />
-        </>
-      )}
+            <StyledDivider />
+          </>
+        );
+      }}
     </Draggable>
   );
 };

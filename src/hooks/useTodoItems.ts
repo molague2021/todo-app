@@ -25,8 +25,6 @@ export const useTodoItems = () => {
 
         let items: TodoItem[] = [];
         docSnap.forEach((doc) => {
-          console.log(doc);
-          console.log(doc.data());
           items.push({
             id: doc.id,
             category: doc.data().category,
