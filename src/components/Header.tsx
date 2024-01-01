@@ -17,7 +17,11 @@ interface HeaderProps {
 
 export const Header = ({ toggleColorMode, mode }: HeaderProps) => {
   return (
-    <Grid display="flex" justifyContent="space-between">
+    <Grid
+      display="flex"
+      justifyContent="space-between"
+      sx={{ minWidth: '540px' }}
+    >
       <Stack>
         <Typography
           sx={{

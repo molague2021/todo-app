@@ -35,11 +35,7 @@ export const App = () => {
           color: 'text.primary',
         }}
       >
-        <Grid
-          container
-          flexDirection="column"
-          sx={{ maxWidth: '1440px', margin: '0 auto' }}
-        >
+        <Grid container flexDirection="column" sx={{ margin: '0 auto' }}>
           <Grid sx={{ position: 'relative' }}>
             <img
               src={bgdesktopdark}
@@ -47,12 +43,14 @@ export const App = () => {
             />
           </Grid>
           <Grid
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
             sx={{
               position: 'absolute',
               zIndex: '2',
               height: '100%',
               width: '100%',
-              maxWidth: '1440px',
               margin: 'auto',
               padding: '70px 450px',
             }}

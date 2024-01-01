@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
-import { collection, getDoc, doc, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  getDoc,
+  doc,
+  query,
+  where,
+  orderBy,
+  getDocs,
+} from 'firebase/firestore';
 
 import { db } from '../firebase.config';
 
@@ -19,12 +27,18 @@ export const useTodoItems = () => {
   useEffect(() => {
     const fetchTodo = async () => {
       try {
-        const docRef = collection(db, 'todoItems');
+        const todoItemsRef = collection(db, 'todoItems');
 
-        const docSnap = await getDocs(docRef);
+        const q = query(
+          todoItemsRef,
+          where('userRef', '==', 'jENYRqc3NjO1IGZ2n54O6Lh61ki1')
+        );
+
+        const docSnap = await getDocs(q);
 
         let items: TodoItem[] = [];
         docSnap.forEach((doc) => {
+          console.log({ doc }, doc.data());
           items.push({
             id: doc.id,
             category: doc.data().category,
