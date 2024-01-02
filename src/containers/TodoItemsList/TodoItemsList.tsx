@@ -16,8 +16,8 @@ import { Droppable, DragDropContext } from 'react-beautiful-dnd';
 import { TodoItem } from '../TodoItem/TodoItem';
 import {
   TodoItem as TodoItemType,
-  useTodoItems,
-} from '../../hooks/useTodoItems';
+  useGetTodoItems,
+} from '../../hooks/useGetTodoItems';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -65,7 +65,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 export const TodoItemsList = () => {
-  const { todoItems, setTodoItems } = useTodoItems();
+  const { todoItems, setTodoItems } = useGetTodoItems();
 
   const onDragEnd = (result) => {
     // dropped outside the list

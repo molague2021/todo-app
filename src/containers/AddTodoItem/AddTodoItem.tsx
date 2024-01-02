@@ -1,6 +1,7 @@
 import React, { SyntheticEvent } from 'react';
 import { Grid, IconButton, SvgIcon, TextField, styled } from '@mui/material';
 import icon_oval from '../../assets/icon_oval.svg';
+import { useSaveTodoItem } from '../../hooks/useSaveTodoItem';
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   width: '100%',
@@ -22,9 +23,21 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 }));
 
 export const AddTodoItem = () => {
+  const { handleAddTodoItem } = useSaveTodoItem();
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && e.target.value) {
       console.log(e.target.value);
+      const todoItemData = {
+        name: e.target.value,
+        category: ['Home'],
+        date: new Date(),
+        status: 'ACTIVE',
+        userRef: 'jENYRqc3NjO1IGZ2n54O6Lh61ki1',
+      };
+
+      console.log({ todoItemData });
+      handleAddTodoItem(todoItemData);
     }
   };
 
@@ -46,7 +59,7 @@ export const AddTodoItem = () => {
         item
         display="flex"
         alignItems="center"
-        sx={{ width: '492px', flexShrink: '0' }}
+        sx={{ width: '492px', height: '64px', flexShrink: '0' }}
       >
         <Grid>
           <IconButton sx={{ padding: 0 }}>
