@@ -18,6 +18,7 @@ import {
   TodoItem as TodoItemType,
   useGetTodoItems,
 } from '../../hooks/useGetTodoItems';
+import { useDeleteTodoItem } from '../../hooks/useDeleteTodoItem';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -66,6 +67,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
 
 export const TodoItemsList = () => {
   const { todoItems, setTodoItems } = useGetTodoItems();
+  const { handleRemoveTodoItem } = useDeleteTodoItem();
 
   const onDragEnd = (result) => {
     // dropped outside the list
@@ -108,7 +110,13 @@ export const TodoItemsList = () => {
                 sx={{ minHeight: '128px' }}
               >
                 {todoItems?.map((item, index) => {
-                  return <TodoItem todoItem={item} index={index} />;
+                  return (
+                    <TodoItem
+                      todoItem={item}
+                      index={index}
+                      onDeleteTodoItem={handleRemoveTodoItem}
+                    />
+                  );
                 })}
                 {provided.placeholder}
               </Grid>

@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from 'react';
+import React, { useState } from 'react';
 import { Grid, IconButton, SvgIcon, TextField, styled } from '@mui/material';
 import icon_oval from '../../assets/icon_oval.svg';
 import { useSaveTodoItem } from '../../hooks/useSaveTodoItem';
@@ -33,7 +33,7 @@ export const AddTodoItem = () => {
         category: ['Home'],
         date: new Date(),
         status: 'ACTIVE',
-        userRef: 'jENYRqc3NjO1IGZ2n54O6Lh61ki1',
+        userRef: process.env.REACT_APP_USER_REF,
       };
 
       console.log({ todoItemData });

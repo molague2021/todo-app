@@ -40,9 +40,14 @@ type TodoItemsListProps = {
   innerRef?: any;
   todoItem: TodoItem;
   index: number;
+  onDeleteTodoItem: (id: string) => Promise<void>;
 };
 
-export const TodoItem = ({ todoItem, index }: TodoItemsListProps) => {
+export const TodoItem = ({
+  todoItem,
+  index,
+  onDeleteTodoItem,
+}: TodoItemsListProps) => {
   return (
     <Draggable key={todoItem.id} draggableId={todoItem.id} index={index}>
       {(provided) => {
@@ -84,7 +89,10 @@ export const TodoItem = ({ todoItem, index }: TodoItemsListProps) => {
                 <StyledTypography>{`${todoItem.name}`}</StyledTypography>
               </Grid>
               <Grid>
-                <IconButton sx={{ padding: 0 }}>
+                <IconButton
+                  sx={{ padding: 0 }}
+                  onClick={() => onDeleteTodoItem(todoItem.id)}
+                >
                   <CloseOutlinedIcon />
                 </IconButton>
               </Grid>
