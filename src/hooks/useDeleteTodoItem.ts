@@ -2,8 +2,8 @@ import React from 'react';
 import { db } from '../firebase.config';
 import {
   doc,
-  updateDoc,
   collection,
+  updateDoc,
   getDocs,
   query,
   where,
@@ -14,9 +14,11 @@ import {
 export const useDeleteTodoItem = () => {
   const handleRemoveTodoItem = async (todoItemId: string) => {
     console.log(todoItemId);
-    await deleteDoc(doc(db, 'todoItems', todoItemId)).then((response) => {
-      console.log(response);
-    });
+    try {
+      await deleteDoc(doc(db, 'todoItems'));
+    } catch (error) {
+      console.error({ error });
+    }
   };
   return { handleRemoveTodoItem };
 };

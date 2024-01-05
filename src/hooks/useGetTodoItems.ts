@@ -57,7 +57,6 @@ export const useGetTodoItems = () => {
     fetchTodo();
   }, []);
 
-  // Delete Todo Item
   // Filter Functions need to be added here
 
   return { todoItems, setTodoItems };

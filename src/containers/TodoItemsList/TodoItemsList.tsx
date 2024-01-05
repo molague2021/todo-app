@@ -20,15 +20,6 @@ import {
 } from '../../hooks/useGetTodoItems';
 import { useDeleteTodoItem } from '../../hooks/useDeleteTodoItem';
 
-// a little function to help us with reordering the result
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
 const StyledTypography = styled(Typography)(({ theme }) => ({
   [`&.MuiTypography-root`]: {
     color: '#5B5E7E',
@@ -65,25 +56,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-export const TodoItemsList = () => {
-  const { todoItems, setTodoItems } = useGetTodoItems();
-  const { handleRemoveTodoItem } = useDeleteTodoItem();
-
-  const onDragEnd = (result) => {
-    // dropped outside the list
-    if (!result.destination) {
-      return;
-    }
-
-    const items = reorder(
-      todoItems,
-      result.source.index,
-      result.destination.index
-    );
-
-    setTodoItems(items as TodoItemType[]);
-  };
-
+export const TodoItemsList = ({ todoItems, onDragEnd, onRemoveTodoItem }) => {
   return (
     <DragDropContext
       onDragEnd={(result) => {
@@ -114,7 +87,7 @@ export const TodoItemsList = () => {
                     <TodoItem
                       todoItem={item}
                       index={index}
-                      onDeleteTodoItem={handleRemoveTodoItem}
+                      onDeleteTodoItem={onRemoveTodoItem}
                     />
                   );
                 })}

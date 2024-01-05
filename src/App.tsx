@@ -17,6 +17,7 @@ import { TodoItemsList } from './containers/TodoItemsList/TodoItemsList';
 import bgdesktopdark from './assets/bg-desktop-dark.jpg';
 import { useToggleColorMode } from './hooks/useToggleColorMode';
 import { AddTodoItem } from './containers/AddTodoItem/AddTodoItem';
+import { TodoItemsListContainer } from './containers/TodoItemsList/TodoItemsListContainer';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 export const App = () => {
@@ -42,7 +43,11 @@ export const App = () => {
               style={{ width: '100%', height: '300px' }}
             />
           </Grid>
-          <Grid
+          <TodoItemsListContainer
+            toggleColorMode={toggleColorMode}
+            mode={mode}
+          />
+          {/* <Grid
             display="flex"
             flexDirection="column"
             alignItems="center"
@@ -58,7 +63,7 @@ export const App = () => {
             <Header toggleColorMode={toggleColorMode} mode={mode} />
             <AddTodoItem />
             <TodoItemsList />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Box>
     </ThemeProvider>
