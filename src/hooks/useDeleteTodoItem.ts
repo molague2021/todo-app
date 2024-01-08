@@ -13,7 +13,6 @@ import {
 
 export const useDeleteTodoItem = () => {
   const handleRemoveTodoItem = async (todoItemId: string) => {
-    console.log(todoItemId);
     try {
       await deleteDoc(doc(db, 'todoItems'));
     } catch (error) {

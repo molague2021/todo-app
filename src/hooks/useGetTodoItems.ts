@@ -16,6 +16,7 @@ import { db } from '../firebase.config';
 export interface TodoItem {
   id: string;
   category: string[];
+  index: number;
   date: Date;
   name: string;
   status: string;
@@ -31,22 +32,24 @@ export const useGetTodoItems = () => {
 
       const q = query(
         todoItemsRef,
-        where('userRef', '==', 'jENYRqc3NjO1IGZ2n54O6Lh61ki1')
+        where('userRef', '==', process.env.REACT_APP_USER_REF)
       );
 
       const docSnap = await getDocs(q);
 
       let items: TodoItem[] = [];
       docSnap.forEach((doc) => {
-        console.log({ doc }, doc.data());
         items.push({
           id: doc.id,
           category: doc.data().category,
+          index: doc.data().index,
           date: doc.data().date,
           name: doc.data().name,
           status: doc.data().status,
         });
       });
+
+      items.sort((a, b) => a.index - b.index);
       setTodoItems(items);
     } catch (error) {
       console.error(error);

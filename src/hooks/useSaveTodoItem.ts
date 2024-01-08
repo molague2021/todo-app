@@ -24,7 +24,6 @@ export const useSaveTodoItem = () => {
   const handleAddTodoItem = async (formData) => {
     try {
       const docRef = await addDoc(collection(db, 'todoItems'), formData);
-      console.log(docRef);
       todoItemRef.current = {
         name: '',
         category: ['Home'],

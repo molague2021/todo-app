@@ -26,13 +26,11 @@ export const AddTodoItem = ({ onAddTodoItem, todoItem }) => {
   const [name, setName] = useState(todoItem.current.name);
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && e.target.value) {
-      console.log(e.target.value);
       todoItem.current = {
         ...todoItem.current,
         name,
       };
 
-      console.log(todoItem.current);
       onAddTodoItem(todoItem.current);
     }
   };

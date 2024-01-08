@@ -9,10 +9,20 @@ import {
   TodoItem as TodoItemType,
   useGetTodoItems,
 } from '../../hooks/useGetTodoItems';
+import { useUpdateTodoItem } from '../../hooks/useUpdateTodoItem';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
+  let i = 0;
+  result.forEach((item: TodoItemType, index) => {
+    if (index === startIndex) {
+      item.index = endIndex;
+    } else {
+      item.index = i;
+      i++;
+    }
+  });
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
 
@@ -31,6 +41,7 @@ export const TodoItemsListContainer = ({
   const { todoItems, setTodoItems } = useGetTodoItems();
   const { handleRemoveTodoItem } = useDeleteTodoItem();
   const { handleAddTodoItem, todoItemRef } = useSaveTodoItem();
+  const { handleUpdateTodoItemIndex } = useUpdateTodoItem();
 
   const handleDragEnd = (result) => {
     // dropped outside the list
@@ -43,6 +54,8 @@ export const TodoItemsListContainer = ({
       result.source.index,
       result.destination.index
     );
+
+    handleUpdateTodoItemIndex(items);
 
     setTodoItems(items as TodoItemType[]);
   };
