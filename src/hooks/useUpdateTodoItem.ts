@@ -1,15 +1,5 @@
-import React from 'react';
 import { db } from '../firebase.config';
-import {
-  doc,
-  collection,
-  updateDoc,
-  getDocs,
-  query,
-  where,
-  orderBy,
-  deleteDoc,
-} from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 
 export const useUpdateTodoItem = () => {
   const handleUpdateTodoItemIndex = (todoItems) => {

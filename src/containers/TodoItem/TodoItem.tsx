@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Grid,
   IconButton,
@@ -10,6 +10,8 @@ import {
   Icon,
 } from '@mui/material';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import RadioButtonUncheckedOutlinedIcon from '@mui/icons-material/RadioButtonUncheckedOutlined';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Draggable } from 'react-beautiful-dnd';
 
 const StyledTypography = styled(Typography)(({ theme }) => ({}));
@@ -27,6 +29,13 @@ const StyledDivider = styled('div')(({ theme }) => ({
     background: theme.palette.divider,
   },
 }));
+
+const StyledIconButton = styled(IconButton)`
+  padding: 0;
+  border-radius: 20px;
+  height: 20px;
+  width: 20px;
+`;
 interface TodoItem {
   id: string;
   category: string[];
@@ -48,6 +57,30 @@ export const TodoItem = ({
   index,
   onDeleteTodoItem,
 }: TodoItemsListProps) => {
+  const [isHover, setIsHover] = useState(false);
+  const GradientOpenWithIcon = () => (
+    <>
+      <svg width={0} height={0}>
+        <linearGradient
+          id="paint0_linear_0_144"
+          x1="-12"
+          y1="12"
+          x2="12"
+          y2="36"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#55DDFF" />
+          <stop offset="1" stop-color="#C058F3" />
+        </linearGradient>
+      </svg>
+      <CheckCircleIcon
+        sx={{
+          fill: 'url(#paint0_linear_0_144)',
+        }}
+      />
+    </>
+  );
+
   return (
     <Draggable key={todoItem.id} draggableId={todoItem.id} index={index}>
       {(provided) => {
@@ -71,19 +104,30 @@ export const TodoItem = ({
               }}
             >
               <Grid>
-                <IconButton sx={{ padding: 0 }}>
+                <StyledIconButton
+                  onMouseEnter={() => setIsHover(true)}
+                  onMouseLeave={() => setIsHover(false)}
+                  sx={{
+                    ...(todoItem.status === 'COMPLETED' && {
+                      backgroundColor: 'white',
+                      '&:hover': {
+                        backgroundColor: 'white',
+                      },
+                    }),
+                  }}
+                >
                   <SvgIcon viewBox="0 0 24 24">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="25"
-                      height="24"
-                      viewBox="0 0 25 24"
-                      fill="none"
-                    >
-                      <circle cx="12" cy="12" r="11" stroke="#393A4B" />
-                    </svg>
+                    {todoItem.status === 'COMPLETED' ? (
+                      <GradientOpenWithIcon />
+                    ) : (
+                      <RadioButtonUncheckedOutlinedIcon
+                        sx={{
+                          fill: isHover && 'url(#paint0_linear_0_144)',
+                        }}
+                      />
+                    )}
                   </SvgIcon>
-                </IconButton>
+                </StyledIconButton>
               </Grid>
               <Grid sx={{ marginLeft: '24px', width: '100%' }}>
                 <StyledTypography>{`${todoItem.name}`}</StyledTypography>
