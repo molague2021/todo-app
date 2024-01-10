@@ -23,6 +23,8 @@ import { DragDropContext } from 'react-beautiful-dnd';
 export const App = () => {
   const { toggleColorMode, theme, mode } = useToggleColorMode();
 
+  console.log({ theme });
+
   return (
     <ThemeProvider theme={theme}>
       <Box

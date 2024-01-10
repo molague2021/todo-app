@@ -14,7 +14,15 @@ import RadioButtonUncheckedOutlinedIcon from '@mui/icons-material/RadioButtonUnc
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Draggable } from 'react-beautiful-dnd';
 
-const StyledTypography = styled(Typography)(({ theme }) => ({}));
+const StyledTypography = styled(Typography)({
+  fontFamily: 'Josefin Sans',
+  fontSize: '18px',
+  fontStyle: 'normal',
+  fontWeight: '400',
+  lineHeight: 'normal',
+  letterSpacing: '-0.25px',
+});
+
 const StyledDivider = styled('div')(({ theme }) => ({
   [theme.breakpoints.between('sm', 'md')]: {
     width: '706px',
@@ -130,14 +138,25 @@ export const TodoItem = ({
                 </StyledIconButton>
               </Grid>
               <Grid sx={{ marginLeft: '24px', width: '100%' }}>
-                <StyledTypography>{`${todoItem.name}`}</StyledTypography>
+                <StyledTypography
+                  sx={{
+                    color: (theme) =>
+                      todoItem.status === 'COMPLETED'
+                        ? theme.palette.text.disabled
+                        : theme.palette.text.primary,
+                    textDecorationLine:
+                      todoItem.status === 'COMPLETED' && 'line-through',
+                  }}
+                >{`${todoItem.name}`}</StyledTypography>
               </Grid>
               <Grid>
                 <IconButton
                   sx={{ padding: 0 }}
                   onClick={() => onDeleteTodoItem(todoItem.id)}
                 >
-                  <CloseOutlinedIcon />
+                  <CloseOutlinedIcon
+                    sx={{ color: (theme) => theme.palette.grey.A100 }}
+                  />
                 </IconButton>
               </Grid>
             </Grid>
