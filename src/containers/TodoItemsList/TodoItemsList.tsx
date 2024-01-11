@@ -56,7 +56,12 @@ const StyledButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-export const TodoItemsList = ({ todoItems, onDragEnd, onRemoveTodoItem }) => {
+export const TodoItemsList = ({
+  todoItems,
+  onDragEnd,
+  onRemoveTodoItem,
+  onUpdateStatus,
+}) => {
   return (
     <DragDropContext
       onDragEnd={(result) => {
@@ -88,6 +93,7 @@ export const TodoItemsList = ({ todoItems, onDragEnd, onRemoveTodoItem }) => {
                       todoItem={item}
                       index={index}
                       onDeleteTodoItem={onRemoveTodoItem}
+                      onUpdateStatus={onUpdateStatus}
                     />
                   );
                 })}

@@ -58,12 +58,14 @@ type TodoItemsListProps = {
   todoItem: TodoItem;
   index: number;
   onDeleteTodoItem: (id: string) => Promise<void>;
+  onUpdateStatus: (todoItem: TodoItem) => void;
 };
 
 export const TodoItem = ({
   todoItem,
   index,
   onDeleteTodoItem,
+  onUpdateStatus,
 }: TodoItemsListProps) => {
   const [isHover, setIsHover] = useState(false);
   const GradientOpenWithIcon = () => (
@@ -123,6 +125,7 @@ export const TodoItem = ({
                       },
                     }),
                   }}
+                  onClick={() => onUpdateStatus(todoItem)}
                 >
                   <SvgIcon viewBox="0 0 24 24">
                     {todoItem.status === 'COMPLETED' ? (

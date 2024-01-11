@@ -41,7 +41,7 @@ export const TodoItemsListContainer = ({
   const { todoItems, setTodoItems } = useGetTodoItems();
   const { handleRemoveTodoItem } = useDeleteTodoItem();
   const { handleAddTodoItem, todoItemRef } = useSaveTodoItem();
-  const { handleUpdateTodoItemIndex } = useUpdateTodoItem();
+  const { handleUpdateSortIndex, handleUpdateItemStatus } = useUpdateTodoItem();
 
   const handleDragEnd = (result) => {
     // dropped outside the list
@@ -55,7 +55,7 @@ export const TodoItemsListContainer = ({
       result.destination.index
     );
 
-    handleUpdateTodoItemIndex(items);
+    handleUpdateSortIndex(items);
 
     setTodoItems(items as TodoItemType[]);
   };
@@ -80,6 +80,7 @@ export const TodoItemsListContainer = ({
         todoItems={todoItems}
         onDragEnd={handleDragEnd}
         onRemoveTodoItem={handleRemoveTodoItem}
+        onUpdateStatus={handleUpdateItemStatus}
       />
     </Grid>
   );
