@@ -12,7 +12,7 @@ import {
 
 import { db } from '../firebase.config';
 
-export const useSaveTodoItem = () => {
+export const useSaveTodoItem = (todoItems, setTodoItems) => {
   const todoItemRef = useRef({
     name: '',
     category: ['Home'],
@@ -23,7 +23,13 @@ export const useSaveTodoItem = () => {
   // Add TodoItem
   const handleAddTodoItem = async (formData) => {
     try {
-      const docRef = await addDoc(collection(db, 'todoItems'), formData);
+      const payload = {
+        ...formData,
+        index: todoItems.length + 1,
+      };
+      const docRef = await addDoc(collection(db, 'todoItems'), payload);
+      console.log({ docRef }, docRef.id);
+      setTodoItems((items) => [...items, { ...payload, id: docRef.id }]);
       todoItemRef.current = {
         name: '',
         category: ['Home'],

@@ -39,8 +39,11 @@ export const TodoItemsListContainer = ({
   mode,
 }: TodoItemsListContainerProps) => {
   const { todoItems, setTodoItems } = useGetTodoItems();
-  const { handleRemoveTodoItem } = useDeleteTodoItem();
-  const { handleAddTodoItem, todoItemRef } = useSaveTodoItem();
+  const { handleRemoveTodoItem } = useDeleteTodoItem(setTodoItems);
+  const { handleAddTodoItem, todoItemRef } = useSaveTodoItem(
+    todoItems,
+    setTodoItems
+  );
   const { handleUpdateSortIndex, handleUpdateItemStatus } = useUpdateTodoItem();
 
   const handleDragEnd = (result) => {
