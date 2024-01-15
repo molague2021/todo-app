@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Grid,
   Box,
@@ -8,7 +7,6 @@ import {
   SvgIcon,
 } from '@mui/material';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import iconMoon from '../assets/icon-moon.svg';
 
 interface HeaderProps {
   toggleColorMode: () => void;

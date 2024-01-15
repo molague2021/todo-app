@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
+import { useState, useEffect } from 'react';
+import { createTheme, useTheme } from '@mui/material/styles';
 
 export const useToggleColorMode = () => {
   const firstTheme = useTheme();

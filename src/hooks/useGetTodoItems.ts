@@ -1,15 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import {
-  collection,
-  getDoc,
-  doc,
-  addDoc,
-  query,
-  where,
-  orderBy,
-  getDocs,
-} from 'firebase/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 import { db } from '../firebase.config';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid } from '@mui/material';
 import { Header } from '../../components/Header';
 import { TodoItemsList } from './TodoItemsList';
@@ -62,8 +61,6 @@ export const TodoItemsListContainer = ({
 
     setTodoItems(items as TodoItemType[]);
   };
-
-  console.log({ name });
 
   return (
     <Grid

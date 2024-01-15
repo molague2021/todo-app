@@ -1,24 +1,8 @@
-import React from 'react';
-import {
-  Grid,
-  IconButton,
-  SvgIcon,
-  TextField,
-  Typography,
-  Button,
-  styled,
-  Divider,
-  Icon,
-} from '@mui/material';
+import { Grid, Typography, Button, styled } from '@mui/material';
 
 import { Droppable, DragDropContext } from 'react-beautiful-dnd';
 
 import { TodoItem } from '../TodoItem/TodoItem';
-import {
-  TodoItem as TodoItemType,
-  useGetTodoItems,
-} from '../../hooks/useGetTodoItems';
-import { useDeleteTodoItem } from '../../hooks/useDeleteTodoItem';
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   [`&.MuiTypography-root`]: {

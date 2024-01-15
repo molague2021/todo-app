@@ -1,29 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
-import {
-  Grid,
-  Box,
-  Stack,
-  IconButton,
-  Typography,
-  styled,
-  Button,
-} from '@mui/material';
-import LightModeIcon from '@mui/icons-material/LightMode';
+import { ThemeProvider } from '@mui/material/styles';
+import { Grid, Box } from '@mui/material';
 
-import { Header } from './components/Header';
-import { TodoItem } from './containers/TodoItem/TodoItem';
-import { TodoItemsList } from './containers/TodoItemsList/TodoItemsList';
 import bgdesktopdark from './assets/bg-desktop-dark.jpg';
 import { useToggleColorMode } from './hooks/useToggleColorMode';
-import { AddTodoItem } from './containers/AddTodoItem/AddTodoItem';
 import { TodoItemsListContainer } from './containers/TodoItemsList/TodoItemsListContainer';
-import { DragDropContext } from 'react-beautiful-dnd';
 
 export const App = () => {
   const { toggleColorMode, theme, mode } = useToggleColorMode();
-
-  console.log({ theme });
 
   return (
     <ThemeProvider theme={theme}>
