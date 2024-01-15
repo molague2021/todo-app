@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Grid,
   Box,
@@ -8,12 +9,19 @@ import {
 } from '@mui/material';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
+export const setBodyColor = (color) => {
+  document.body.style.backgroundColor = color;
+};
 interface HeaderProps {
   toggleColorMode: () => void;
   mode: string;
 }
 
 export const Header = ({ toggleColorMode, mode }: HeaderProps) => {
+  useEffect(() => {
+    setBodyColor(mode === 'light' ? '#FAFAFA' : '#171823');
+  }, [mode]);
+
   return (
     <Grid
       display="flex"

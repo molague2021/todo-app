@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { Grid, Box } from '@mui/material';
 
@@ -17,7 +18,6 @@ export const App = () => {
           height: '100%',
           width: '100%',
           alignItems: 'flex-start',
-          bgcolor: 'background.default',
           color: 'text.primary',
         }}
       >
