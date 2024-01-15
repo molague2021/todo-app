@@ -1,7 +1,4 @@
-import React, { useState } from 'react';
 import { Grid, IconButton, SvgIcon, TextField, styled } from '@mui/material';
-import icon_oval from '../../assets/icon_oval.svg';
-import { TodoItem } from '../TodoItem/TodoItem';
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   width: '100%',
@@ -22,24 +19,11 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },
 }));
 
-export const AddTodoItem = ({ onAddTodoItem, todoItem }) => {
-  const [name, setName] = useState(todoItem.current.name);
+export const AddTodoItem = ({ onAddTodoItem, todoItemName, onNameChange }) => {
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && e.target.value) {
-      todoItem.current = {
-        ...todoItem.current,
-        name,
-      };
-
-      onAddTodoItem(todoItem.current);
+      onAddTodoItem();
     }
-  };
-
-  const handleNameChange = (e) => {
-    todoItem.current = {
-      ...todoItem.current,
-      name: e.target.value,
-    };
   };
 
   return (
@@ -80,8 +64,8 @@ export const AddTodoItem = ({ onAddTodoItem, todoItem }) => {
         <Grid sx={{ marginLeft: '24px', width: '100%' }}>
           <StyledTextField
             onKeyDown={handleKeyDown}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={todoItemName}
+            onChange={(e) => onNameChange(e.target.value)}
           />
         </Grid>
       </Grid>

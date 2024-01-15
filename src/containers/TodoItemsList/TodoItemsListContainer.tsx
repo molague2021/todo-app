@@ -40,7 +40,7 @@ export const TodoItemsListContainer = ({
 }: TodoItemsListContainerProps) => {
   const { todoItems, setTodoItems } = useGetTodoItems();
   const { handleRemoveTodoItem } = useDeleteTodoItem(setTodoItems);
-  const { handleAddTodoItem, todoItemRef } = useSaveTodoItem(
+  const { handleAddTodoItem, name, handleNameChange } = useSaveTodoItem(
     todoItems,
     setTodoItems
   );
@@ -63,6 +63,8 @@ export const TodoItemsListContainer = ({
     setTodoItems(items as TodoItemType[]);
   };
 
+  console.log({ name });
+
   return (
     <Grid
       display="flex"
@@ -78,7 +80,11 @@ export const TodoItemsListContainer = ({
       }}
     >
       <Header toggleColorMode={toggleColorMode} mode={mode} />
-      <AddTodoItem onAddTodoItem={handleAddTodoItem} todoItem={todoItemRef} />
+      <AddTodoItem
+        onAddTodoItem={handleAddTodoItem}
+        todoItemName={name}
+        onNameChange={handleNameChange}
+      />
       <TodoItemsList
         todoItems={todoItems}
         onDragEnd={handleDragEnd}
