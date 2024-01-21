@@ -1,8 +1,16 @@
+import { useRef, useEffect, useState, useMemo } from 'react';
 import { Grid, Typography, Button, styled } from '@mui/material';
 
 import { Droppable, DragDropContext } from 'react-beautiful-dnd';
 
 import { TodoItem } from '../TodoItem/TodoItem';
+import { FilterButton } from '../../components/FilterButton';
+
+const filterOptions = [
+  { label: 'All', value: 'ALL', active: false },
+  { label: 'Active', value: 'ACTIVE', active: false },
+  { label: 'Completed', value: 'COMPLETED', active: false },
+];
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   [`&.MuiTypography-root`]: {
@@ -18,6 +26,12 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 
 const StyledButton = styled(Button)(({ theme }) => ({
   [`&.MuiButton-root`]: {
+    // [`:active`]: {
+    //   color: '#3A7CFD',
+    // },
+    // [`:focus`]: {
+    //   color: '#3A7CFD',
+    // },
     color: theme.palette.text.secondary,
     fontFamily: 'Josefin Sans',
     fontSize: '14px',
@@ -29,9 +43,15 @@ const StyledButton = styled(Button)(({ theme }) => ({
     minWidth: '0',
     textTransform: 'none',
   },
-  [`&.MuiButton-root:hover`]: {
-    color: '#3A7CFD',
-  },
+  // [`&.MuiButton-root:hover`]: {
+  //   color: '#3A7CFD',
+  // },
+  // [`&.MuiButton-root:focus`]: {
+  //   color: '#3A7CFD',
+  // },
+  // [`&.MuiButton-root:active`]: {
+  //   color: '#3A7CFD',
+  // },
   [theme.breakpoints.between('sm', 'md')]: {
     width: '136px',
     padding: 0,
@@ -46,6 +66,23 @@ export const TodoItemsList = ({
   onRemoveTodoItem,
   onUpdateStatus,
 }) => {
+  const [filters, setFilters] = useState([...filterOptions]);
+  const handleFilter = (option) => {
+    setFilters((prevState) =>
+      prevState.map((filter) => {
+        if (filter.value === option.value) {
+          return { ...filter, active: option.active };
+        } else {
+          return { ...filter, active: false };
+        }
+      })
+    );
+  };
+
+  useEffect(() => {
+    console.log('filters', filters);
+  }, [filters]);
+
   return (
     <DragDropContext
       onDragEnd={(result) => {
@@ -106,9 +143,13 @@ export const TodoItemsList = ({
               justifyContent="space-between"
               sx={{ width: '166px' }}
             >
-              <StyledButton>All</StyledButton>
-              <StyledButton>Active</StyledButton>
-              <StyledButton>Completed</StyledButton>
+              {filters.map((option) => (
+                <FilterButton
+                  option={option}
+                  filtersRef={filters}
+                  onFilterClick={handleFilter}
+                />
+              ))}
             </Grid>
             <Grid display="flex">
               <StyledButton>Clear Completed</StyledButton>

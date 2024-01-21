@@ -70,7 +70,6 @@ export const TodoItemsListContainer = ({
       sx={{
         position: 'absolute',
         zIndex: '2',
-        height: '100%',
         width: '100%',
         margin: 'auto',
         padding: '70px 450px',
