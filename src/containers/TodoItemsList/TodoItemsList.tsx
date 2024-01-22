@@ -26,12 +26,6 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 
 const StyledButton = styled(Button)(({ theme }) => ({
   [`&.MuiButton-root`]: {
-    // [`:active`]: {
-    //   color: '#3A7CFD',
-    // },
-    // [`:focus`]: {
-    //   color: '#3A7CFD',
-    // },
     color: theme.palette.text.secondary,
     fontFamily: 'Josefin Sans',
     fontSize: '14px',
@@ -43,15 +37,6 @@ const StyledButton = styled(Button)(({ theme }) => ({
     minWidth: '0',
     textTransform: 'none',
   },
-  // [`&.MuiButton-root:hover`]: {
-  //   color: '#3A7CFD',
-  // },
-  // [`&.MuiButton-root:focus`]: {
-  //   color: '#3A7CFD',
-  // },
-  // [`&.MuiButton-root:active`]: {
-  //   color: '#3A7CFD',
-  // },
   [theme.breakpoints.between('sm', 'md')]: {
     width: '136px',
     padding: 0,
@@ -65,6 +50,7 @@ export const TodoItemsList = ({
   onDragEnd,
   onRemoveTodoItem,
   onUpdateStatus,
+  onFilterTodoItems,
 }) => {
   const [filters, setFilters] = useState([...filterOptions]);
   const handleFilter = (option) => {
@@ -80,7 +66,7 @@ export const TodoItemsList = ({
   };
 
   useEffect(() => {
-    console.log('filters', filters);
+    onFilterTodoItems(filters);
   }, [filters]);
 
   return (
@@ -144,11 +130,7 @@ export const TodoItemsList = ({
               sx={{ width: '166px' }}
             >
               {filters.map((option) => (
-                <FilterButton
-                  option={option}
-                  filtersRef={filters}
-                  onFilterClick={handleFilter}
-                />
+                <FilterButton option={option} onFilterClick={handleFilter} />
               ))}
             </Grid>
             <Grid display="flex">

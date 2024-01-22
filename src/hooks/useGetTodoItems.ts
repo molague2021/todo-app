@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
@@ -16,6 +16,7 @@ export interface TodoItem {
 export const useGetTodoItems = () => {
   // Get Todo Items
   const [todoItems, setTodoItems] = useState<TodoItem[]>();
+  const originalTodoItemsRef = useRef([]);
 
   const fetchTodo = async () => {
     try {
@@ -42,6 +43,7 @@ export const useGetTodoItems = () => {
 
       items.sort((a, b) => a.index - b.index);
       setTodoItems(items);
+      originalTodoItemsRef.current = items;
     } catch (error) {
       console.error(error);
     }
@@ -53,5 +55,20 @@ export const useGetTodoItems = () => {
 
   // Filter Functions need to be added here
 
-  return { todoItems, setTodoItems };
+  const handleFilterTodoItems = (filters) => {
+    const filter = filters.find((f) => f.active);
+
+    if (!filter || filter.value === 'ALL') {
+      setTodoItems(originalTodoItemsRef.current);
+      return;
+    }
+
+    const { value } = filter;
+
+    setTodoItems(
+      originalTodoItemsRef.current.filter((f) => f.status === value)
+    );
+  };
+
+  return { todoItems, setTodoItems, handleFilterTodoItems };
 };

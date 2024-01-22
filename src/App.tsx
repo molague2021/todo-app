@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { Grid, Box } from '@mui/material';
 

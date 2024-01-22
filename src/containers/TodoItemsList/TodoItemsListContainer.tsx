@@ -37,7 +37,7 @@ export const TodoItemsListContainer = ({
   toggleColorMode,
   mode,
 }: TodoItemsListContainerProps) => {
-  const { todoItems, setTodoItems } = useGetTodoItems();
+  const { todoItems, setTodoItems, handleFilterTodoItems } = useGetTodoItems();
   const { handleRemoveTodoItem } = useDeleteTodoItem(setTodoItems);
   const { handleAddTodoItem, name, handleNameChange } = useSaveTodoItem(
     todoItems,
@@ -86,6 +86,7 @@ export const TodoItemsListContainer = ({
         onDragEnd={handleDragEnd}
         onRemoveTodoItem={handleRemoveTodoItem}
         onUpdateStatus={handleUpdateItemStatus}
+        onFilterTodoItems={handleFilterTodoItems}
       />
     </Grid>
   );
