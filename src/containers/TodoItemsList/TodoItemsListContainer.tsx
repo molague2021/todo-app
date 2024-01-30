@@ -37,8 +37,18 @@ export const TodoItemsListContainer = ({
   toggleColorMode,
   mode,
 }: TodoItemsListContainerProps) => {
-  const { todoItems, setTodoItems, handleFilterTodoItems } = useGetTodoItems();
-  const { handleRemoveTodoItem } = useDeleteTodoItem(setTodoItems);
+  const {
+    todoItems,
+    setTodoItems,
+    handleFilterTodoItems,
+    setResetOriginalList,
+  } = useGetTodoItems();
+  const { handleRemoveTodoItem, handleClearCompletedItems } = useDeleteTodoItem(
+    todoItems,
+    setTodoItems,
+    reorder,
+    setResetOriginalList
+  );
   const { handleAddTodoItem, name, handleNameChange } = useSaveTodoItem(
     todoItems,
     setTodoItems
@@ -85,6 +95,7 @@ export const TodoItemsListContainer = ({
         todoItems={todoItems}
         onDragEnd={handleDragEnd}
         onRemoveTodoItem={handleRemoveTodoItem}
+        onClearCompleteItems={handleClearCompletedItems}
         onUpdateStatus={handleUpdateItemStatus}
         onFilterTodoItems={handleFilterTodoItems}
       />

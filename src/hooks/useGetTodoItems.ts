@@ -16,6 +16,7 @@ export interface TodoItem {
 export const useGetTodoItems = () => {
   // Get Todo Items
   const [todoItems, setTodoItems] = useState<TodoItem[]>();
+  const [resetOriginalList, setResetOriginalList] = useState(false);
   const originalTodoItemsRef = useRef([]);
 
   const fetchTodo = async () => {
@@ -53,6 +54,13 @@ export const useGetTodoItems = () => {
     fetchTodo();
   }, []);
 
+  useEffect(() => {
+    if (resetOriginalList) {
+      originalTodoItemsRef.current = todoItems;
+      setResetOriginalList(false);
+    }
+  }, [resetOriginalList]);
+
   // Filter Functions need to be added here
 
   const handleFilterTodoItems = (filters) => {
@@ -70,5 +78,10 @@ export const useGetTodoItems = () => {
     );
   };
 
-  return { todoItems, setTodoItems, handleFilterTodoItems };
+  return {
+    todoItems,
+    setTodoItems,
+    handleFilterTodoItems,
+    setResetOriginalList,
+  };
 };

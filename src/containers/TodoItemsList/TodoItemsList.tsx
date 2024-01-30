@@ -49,6 +49,7 @@ export const TodoItemsList = ({
   todoItems,
   onDragEnd,
   onRemoveTodoItem,
+  onClearCompleteItems,
   onUpdateStatus,
   onFilterTodoItems,
 }) => {
@@ -134,7 +135,9 @@ export const TodoItemsList = ({
               ))}
             </Grid>
             <Grid display="flex">
-              <StyledButton>Clear Completed</StyledButton>
+              <StyledButton onClick={onClearCompleteItems}>
+                Clear Completed
+              </StyledButton>
             </Grid>
           </Grid>
         </Grid>
