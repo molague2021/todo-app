@@ -1,5 +1,12 @@
-import { useState } from 'react';
-import { Grid, IconButton, SvgIcon, styled, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import {
+  Grid,
+  IconButton,
+  SvgIcon,
+  styled,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import RadioButtonUncheckedOutlinedIcon from '@mui/icons-material/RadioButtonUncheckedOutlined';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -59,6 +66,9 @@ export const TodoItem = ({
   onUpdateStatus,
 }: TodoItemsListProps) => {
   const [isHover, setIsHover] = useState(false);
+  const [displayGradient, setDisplayGradient] = useState(false);
+  const theme = useTheme();
+
   const GradientOpenWithIcon = () => (
     <>
       <svg width={0} height={0}>
@@ -82,6 +92,31 @@ export const TodoItem = ({
     </>
   );
 
+  const GradientUnCheckedWithIcon = () => (
+    <>
+      <svg width={0} height={0}>
+        <linearGradient
+          id="paint0_linear_0_144"
+          x1="-12"
+          y1="12"
+          x2="12"
+          y2="36"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#55DDFF" />
+          <stop offset="1" stop-color="#C058F3" />
+        </linearGradient>
+      </svg>
+      <RadioButtonUncheckedOutlinedIcon
+        sx={{
+          fill: displayGradient
+            ? 'url(#paint0_linear_0_144)'
+            : theme.palette.text.disabled,
+        }}
+      />
+    </>
+  );
+
   return (
     <Draggable key={todoItem.id} draggableId={todoItem.id} index={index}>
       {(provided) => {
@@ -96,6 +131,8 @@ export const TodoItem = ({
               {...provided.dragHandleProps}
               ref={provided.innerRef}
               alignItems="center"
+              onMouseEnter={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}
               draggable={true}
               sx={{
                 width: '540px',
@@ -106,8 +143,8 @@ export const TodoItem = ({
             >
               <Grid>
                 <StyledIconButton
-                  onMouseEnter={() => setIsHover(true)}
-                  onMouseLeave={() => setIsHover(false)}
+                  onMouseEnter={() => setDisplayGradient(true)}
+                  onMouseLeave={() => setDisplayGradient(false)}
                   sx={{
                     ...(todoItem.status === 'COMPLETED' && {
                       backgroundColor: 'white',
@@ -122,11 +159,7 @@ export const TodoItem = ({
                     {todoItem.status === 'COMPLETED' ? (
                       <GradientOpenWithIcon />
                     ) : (
-                      <RadioButtonUncheckedOutlinedIcon
-                        sx={{
-                          fill: isHover && 'url(#paint0_linear_0_144)',
-                        }}
-                      />
+                      <GradientUnCheckedWithIcon />
                     )}
                   </SvgIcon>
                 </StyledIconButton>
@@ -144,14 +177,16 @@ export const TodoItem = ({
                 >{`${todoItem.name}`}</StyledTypography>
               </Grid>
               <Grid>
-                <IconButton
-                  sx={{ padding: 0 }}
-                  onClick={() => onDeleteTodoItem(todoItem.id)}
-                >
-                  <CloseOutlinedIcon
-                    sx={{ color: (theme) => theme.palette.grey.A100 }}
-                  />
-                </IconButton>
+                {isHover && (
+                  <IconButton
+                    sx={{ padding: 0 }}
+                    onClick={() => onDeleteTodoItem(todoItem.id)}
+                  >
+                    <CloseOutlinedIcon
+                      sx={{ color: (theme) => theme.palette.grey.A100 }}
+                    />
+                  </IconButton>
+                )}
               </Grid>
             </Grid>
             <StyledDivider />

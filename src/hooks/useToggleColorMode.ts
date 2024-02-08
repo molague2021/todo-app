@@ -12,6 +12,15 @@ export const useToggleColorMode = () => {
 
   useEffect(() => {
     const newTheme = createTheme({
+      breakpoints: {
+        values: {
+          xs: 0,
+          sm: 431,
+          lg: 1200,
+          md: 900,
+          xl: 1536,
+        },
+      },
       palette: {
         mode,
         grey: {

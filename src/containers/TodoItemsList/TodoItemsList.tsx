@@ -37,7 +37,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
     minWidth: '0',
     textTransform: 'none',
   },
-  [theme.breakpoints.between('sm', 'md')]: {
+  [theme.breakpoints.up('sm')]: {
     width: '136px',
     padding: 0,
     height: '26px',
@@ -52,6 +52,7 @@ export const TodoItemsList = ({
   onClearCompleteItems,
   onUpdateStatus,
   onFilterTodoItems,
+  mobileView,
 }) => {
   const [filters, setFilters] = useState([...filterOptions]);
   const handleFilter = (option) => {
@@ -81,7 +82,7 @@ export const TodoItemsList = ({
         container
         display="flex"
         sx={{
-          width: '540px',
+          width: mobileView ? '327px' : '540px',
           borderRadius: '5px',
           bgcolor: 'background.paper',
           boxShadow: '0px 35px 50px -15px rgba(0, 0, 0, 0.50)',
@@ -115,12 +116,16 @@ export const TodoItemsList = ({
           key="sorting-list"
           display="flex"
           alignItems="center"
-          sx={{ width: '540px', height: '50px', flexShrink: '0' }}
+          sx={{
+            width: mobileView ? '327px' : '540px',
+            height: '50px',
+            flexShrink: '0',
+          }}
         >
           <Grid
             display="flex"
             justifyContent="space-between"
-            sx={{ width: '540px', padding: '0 24px' }}
+            sx={{ width: mobileView ? '327px' : '540px', padding: '0 24px' }}
           >
             <StyledTypography>{`${
               todoItems?.length ?? 0

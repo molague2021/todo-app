@@ -15,9 +15,10 @@ export const setBodyColor = (color) => {
 interface HeaderProps {
   toggleColorMode: () => void;
   mode: string;
+  mobileView: boolean;
 }
 
-export const Header = ({ toggleColorMode, mode }: HeaderProps) => {
+export const Header = ({ toggleColorMode, mode, mobileView }: HeaderProps) => {
   useEffect(() => {
     setBodyColor(mode === 'light' ? '#FAFAFA' : '#171823');
   }, [mode]);
@@ -26,7 +27,7 @@ export const Header = ({ toggleColorMode, mode }: HeaderProps) => {
     <Grid
       display="flex"
       justifyContent="space-between"
-      sx={{ minWidth: '540px' }}
+      sx={{ minWidth: mobileView ? '335px' : '540px' }}
     >
       <Stack>
         <Typography

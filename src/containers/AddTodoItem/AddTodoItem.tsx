@@ -1,4 +1,11 @@
-import { Grid, IconButton, SvgIcon, TextField, styled } from '@mui/material';
+import {
+  Grid,
+  IconButton,
+  SvgIcon,
+  TextField,
+  styled,
+  useTheme,
+} from '@mui/material';
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   width: '100%',
@@ -19,7 +26,13 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },
 }));
 
-export const AddTodoItem = ({ onAddTodoItem, todoItemName, onNameChange }) => {
+export const AddTodoItem = ({
+  onAddTodoItem,
+  todoItemName,
+  onNameChange,
+  mobileView,
+}) => {
+  const theme = useTheme();
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && e.target.value) {
       onAddTodoItem();
@@ -32,8 +45,8 @@ export const AddTodoItem = ({ onAddTodoItem, todoItemName, onNameChange }) => {
       container
       display="flex"
       sx={{
-        width: '540px',
-        height: '64px',
+        width: mobileView ? '327px' : '540px',
+        height: mobileView ? '48px' : '64px',
         borderRadius: '5px',
         bgcolor: 'background.paper',
         boxShadow: '0px 35px 50px -15px rgba(0, 0, 0, 0.50)',
@@ -44,10 +57,14 @@ export const AddTodoItem = ({ onAddTodoItem, todoItemName, onNameChange }) => {
         item
         display="flex"
         alignItems="center"
-        sx={{ width: '492px', height: '64px', flexShrink: '0' }}
+        sx={{
+          width: mobileView ? '280px' : '492px',
+          height: mobileView ? '48px' : '64px',
+          flexShrink: '0',
+        }}
       >
         <Grid>
-          <IconButton sx={{ padding: 0 }}>
+          <IconButton sx={{ padding: 0 }} disabled>
             <SvgIcon viewBox="0 0 24 24">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -65,6 +82,7 @@ export const AddTodoItem = ({ onAddTodoItem, todoItemName, onNameChange }) => {
           <StyledTextField
             onKeyDown={handleKeyDown}
             value={todoItemName}
+            placeholder="Create a new todo..."
             onChange={(e) => onNameChange(e.target.value)}
           />
         </Grid>
