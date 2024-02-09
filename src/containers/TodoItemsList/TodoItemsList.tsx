@@ -103,6 +103,7 @@ export const TodoItemsList = ({
                       index={index}
                       onDeleteTodoItem={onRemoveTodoItem}
                       onUpdateStatus={onUpdateStatus}
+                      mobileView={mobileView}
                     />
                   );
                 })}
@@ -153,7 +154,7 @@ export const TodoItemsList = ({
         display="flex"
         justifyContent="center"
         sx={{
-          width: '540px',
+          width: mobileView ? '327px' : '540px',
           marginTop: '49px',
         }}
       >

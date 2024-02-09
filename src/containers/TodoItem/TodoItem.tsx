@@ -55,6 +55,7 @@ type TodoItemsListProps = {
   innerRef?: any;
   todoItem: TodoItem;
   index: number;
+  mobileView: boolean;
   onDeleteTodoItem: (id: string) => Promise<void>;
   onUpdateStatus: (todoItem: TodoItem) => void;
 };
@@ -64,6 +65,7 @@ export const TodoItem = ({
   index,
   onDeleteTodoItem,
   onUpdateStatus,
+  mobileView,
 }: TodoItemsListProps) => {
   const [isHover, setIsHover] = useState(false);
   const [displayGradient, setDisplayGradient] = useState(false);
@@ -135,7 +137,7 @@ export const TodoItem = ({
               onMouseLeave={() => setIsHover(false)}
               draggable={true}
               sx={{
-                width: '540px',
+                width: mobileView ? '327px' : '540px',
                 height: '64px',
                 flexShrink: '0',
                 padding: '0 24px',
