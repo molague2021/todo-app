@@ -27,13 +27,16 @@ export const Header = ({ toggleColorMode, mode, mobileView }: HeaderProps) => {
     <Grid
       display="flex"
       justifyContent="space-between"
-      sx={{ minWidth: mobileView ? '335px' : '540px' }}
+      sx={{
+        minWidth: mobileView ? '335px' : '540px',
+        height: mobileView ? '20px' : '42px',
+      }}
     >
       <Stack>
         <Typography
           sx={{
             fontFamily: 'Josefin Sans',
-            fontSize: '40px',
+            fontSize: mobileView ? '20px' : '40px',
             fontStyle: 'normal',
             fontWeight: '700',
             lineHeight: 'normal',
@@ -45,12 +48,22 @@ export const Header = ({ toggleColorMode, mode, mobileView }: HeaderProps) => {
         </Typography>
       </Stack>
       <Stack>
-        <IconButton onClick={() => toggleColorMode()}>
+        <IconButton
+          size="small"
+          sx={{ padding: mobileView && '0px' }}
+          onClick={() => toggleColorMode()}
+        >
           {mode !== 'light' ? (
-            <LightModeIcon sx={{ fontSize: '26px', color: '#FFF' }} />
+            <LightModeIcon
+              sx={{ fontSize: !mobileView && '26px', color: '#FFF' }}
+            />
           ) : (
             <SvgIcon viewBox="0 0 26 26">
-              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={mobileView ? '20px' : '26px'}
+                height={mobileView ? '20px' : '26px'}
+              >
                 <path
                   fill="#FFF"
                   fill-rule="evenodd"

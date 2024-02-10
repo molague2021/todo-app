@@ -13,7 +13,16 @@ const filterOptions = [
 ];
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
-  [`&.MuiTypography-root`]: {
+  [theme.breakpoints.between('xs', 'sm')]: {
+    color: '#5B5E7E',
+    fontFamily: 'Josefin Sans',
+    fontSize: '12px',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: 'normal',
+    letterSpacing: '-0.17px',
+  },
+  [theme.breakpoints.up('sm')]: {
     color: '#5B5E7E',
     fontFamily: 'Josefin Sans',
     fontSize: '14px',

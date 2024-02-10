@@ -9,17 +9,33 @@ import {
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   width: '100%',
-  [`.MuiOutlinedInput-input`]: {
-    boxSizing: 'inherit',
-    padding: '0',
-    color: theme.palette.text.primary,
-    fontFamily: 'Josefin Sans',
-    fontSize: '18px',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: 'normal',
-    letterSpacing: '-0.25px',
+  [theme.breakpoints.between('xs', 'sm')]: {
+    [`.MuiOutlinedInput-input`]: {
+      boxSizing: 'inherit',
+      padding: '0',
+      color: theme.palette.text.primary,
+      fontFamily: 'Josefin Sans',
+      fontSize: '12px',
+      fontStyle: 'normal',
+      fontWeight: '400',
+      lineHeight: 'normal',
+      letterSpacing: '-0.17px',
+    },
   },
+  [theme.breakpoints.up('sm')]: {
+    [`.MuiOutlinedInput-input`]: {
+      boxSizing: 'inherit',
+      padding: '0',
+      color: theme.palette.text.primary,
+      fontFamily: 'Josefin Sans',
+      fontSize: '18px',
+      fontStyle: 'normal',
+      fontWeight: '400',
+      lineHeight: 'normal',
+      letterSpacing: '-0.25px',
+    },
+  },
+
   [`fieldset`]: {
     borderColor: 'unset',
     borderStyle: 'unset',

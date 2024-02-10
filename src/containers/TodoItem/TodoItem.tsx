@@ -12,23 +12,33 @@ import RadioButtonUncheckedOutlinedIcon from '@mui/icons-material/RadioButtonUnc
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Draggable } from 'react-beautiful-dnd';
 
-const StyledTypography = styled(Typography)({
-  fontFamily: 'Josefin Sans',
-  fontSize: '18px',
-  fontStyle: 'normal',
-  fontWeight: '400',
-  lineHeight: 'normal',
-  letterSpacing: '-0.25px',
-});
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.between('xs', 'sm')]: {
+    fontFamily: 'Josefin Sans',
+    fontSize: '12px',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: 'normal',
+    letterSpacing: '-0.17px',
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontFamily: 'Josefin Sans',
+    fontSize: '18px',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: 'normal',
+    letterSpacing: '-0.25px',
+  },
+}));
 
 const StyledDivider = styled('div')(({ theme }) => ({
-  [theme.breakpoints.between('sm', 'md')]: {
-    width: '706px',
+  [theme.breakpoints.between('xs', 'sm')]: {
+    width: '327px',
     height: '1px',
     flexShrink: '0',
-    background: 'white',
+    background: theme.palette.divider,
   },
-  [theme.breakpoints.between('md', 'xl')]: {
+  [theme.breakpoints.up('sm')]: {
     width: '540px',
     height: '1px',
     flexShrink: '0',
@@ -179,7 +189,7 @@ export const TodoItem = ({
                 >{`${todoItem.name}`}</StyledTypography>
               </Grid>
               <Grid>
-                {isHover && (
+                {(isHover || mobileView) && (
                   <IconButton
                     sx={{ padding: 0 }}
                     onClick={() => onDeleteTodoItem(todoItem.id)}

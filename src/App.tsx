@@ -43,7 +43,10 @@ export const App = () => {
       >
         <Grid container flexDirection="column" sx={{ margin: '0 auto' }}>
           <Grid sx={{ position: 'relative' }}>
-            <img src={bgImage} style={{ width: '100%', height: '300px' }} />
+            <img
+              src={bgImage}
+              style={{ width: '100%', height: mobileView ? '200px' : '300px' }}
+            />
           </Grid>
           <TodoItemsListContainer
             toggleColorMode={toggleColorMode}
