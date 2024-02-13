@@ -57,10 +57,10 @@ export const AddTodoItem = ({
 
   return (
     <Grid
-      mt={6}
       container
       display="flex"
       sx={{
+        marginTop: mobileView ? '30px' : '48px',
         width: mobileView ? '327px' : '540px',
         height: mobileView ? '48px' : '64px',
         borderRadius: '5px',

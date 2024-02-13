@@ -140,15 +140,17 @@ export const TodoItemsList = ({
             <StyledTypography>{`${
               todoItems?.length ?? 0
             } items left`}</StyledTypography>
-            <Grid
-              display="flex"
-              justifyContent="space-between"
-              sx={{ width: '166px' }}
-            >
-              {filters.map((option) => (
-                <FilterButton option={option} onFilterClick={handleFilter} />
-              ))}
-            </Grid>
+            {!mobileView && (
+              <Grid
+                display="flex"
+                justifyContent="space-between"
+                sx={{ width: '166px' }}
+              >
+                {filters.map((option) => (
+                  <FilterButton option={option} onFilterClick={handleFilter} />
+                ))}
+              </Grid>
+            )}
             <Grid display="flex">
               <StyledButton onClick={onClearCompleteItems}>
                 Clear Completed
@@ -157,6 +159,47 @@ export const TodoItemsList = ({
           </Grid>
         </Grid>
       </Grid>
+
+      {mobileView && (
+        <Grid
+          mt={2}
+          container
+          display="flex"
+          sx={{
+            width: mobileView ? '327px' : '540px',
+            borderRadius: '5px',
+            bgcolor: 'background.paper',
+          }}
+        >
+          <Grid
+            item
+            key="sorting-list"
+            display="flex"
+            alignItems="center"
+            sx={{
+              width: mobileView ? '327px' : '540px',
+              height: '50px',
+              flexShrink: '0',
+            }}
+          >
+            <Grid
+              display="flex"
+              justifyContent="center"
+              sx={{ width: mobileView ? '327px' : '540px', padding: '0 24px' }}
+            >
+              <Grid
+                display="flex"
+                justifyContent="space-between"
+                sx={{ width: '166px' }}
+              >
+                {filters.map((option) => (
+                  <FilterButton option={option} onFilterClick={handleFilter} />
+                ))}
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      )}
 
       <Grid
         container

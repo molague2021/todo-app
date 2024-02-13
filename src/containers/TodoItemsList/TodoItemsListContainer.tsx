@@ -32,7 +32,7 @@ const reorder = (list, startIndex, endIndex) => {
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.between('xs', 'sm')]: {
-    padding: '70px 0px',
+    padding: '45px 0px',
   },
   [theme.breakpoints.up('sm')]: {
     padding: '70px 450px',
