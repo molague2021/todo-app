@@ -34,23 +34,41 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
-  [`&.MuiButton-root`]: {
-    color: theme.palette.text.secondary,
-    fontFamily: 'Josefin Sans',
-    fontSize: '14px',
-    fontStyle: 'normal',
-    fontWeight: '700',
-    lineHeight: 'normal' /* 162.5% */,
-    letterSpacing: '-0.194px',
-    padding: '0',
-    minWidth: '0',
-    textTransform: 'none',
+  [theme.breakpoints.between('xs', 'sm')]: {
+    width: '95px',
+    padding: 0,
+    height: '12px',
+    flexShrink: '0',
+    [`&.MuiButton-root`]: {
+      color: theme.palette.text.secondary,
+      fontFamily: 'Josefin Sans',
+      fontSize: '12px',
+      fontStyle: 'normal',
+      fontWeight: '700',
+      lineHeight: 'normal' /* 162.5% */,
+      letterSpacing: '-0.17px',
+      padding: '0',
+      minWidth: '0',
+      textTransform: 'none',
+    },
   },
   [theme.breakpoints.up('sm')]: {
     width: '136px',
     padding: 0,
     height: '26px',
     flexShrink: '0',
+    [`&.MuiButton-root`]: {
+      color: theme.palette.text.secondary,
+      fontFamily: 'Josefin Sans',
+      fontSize: '14px',
+      fontStyle: 'normal',
+      fontWeight: '700',
+      lineHeight: 'normal' /* 162.5% */,
+      letterSpacing: '-0.194px',
+      padding: '0',
+      minWidth: '0',
+      textTransform: 'none',
+    },
   },
 }));
 
@@ -135,6 +153,7 @@ export const TodoItemsList = ({
           <Grid
             display="flex"
             justifyContent="space-between"
+            alignItems="center"
             sx={{ width: mobileView ? '327px' : '540px', padding: '0 24px' }}
           >
             <StyledTypography>{`${

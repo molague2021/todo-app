@@ -14,7 +14,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
     minWidth: '0',
     textTransform: 'none',
   },
-  [theme.breakpoints.between('sm', 'md')]: {
+  [theme.breakpoints.up('sm')]: {
     width: '136px',
     padding: 0,
     height: '26px',
